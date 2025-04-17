@@ -54,7 +54,9 @@ public class DemoApplication {
 
             if (isSpecialMode) {
                 title = "Special Mode Active!";
-                message = "Hello from the ✨ SPECIAL ✨ World!";
+                //message = "Hello from the ✨ SPECIAL ✨ World!";
+                message = "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!";
+
                 bodyBackgroundColor = "#e0f7fa"; // Light cyan background
                 messageColor = "#00796b"; // Teal text
                 borderColor = "#004d40"; // Darker teal border
