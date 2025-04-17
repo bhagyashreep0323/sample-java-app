@@ -61,7 +61,7 @@ public class DemoApplication {
             } else {
                 title = "Default Mode";
                 //message = "Hello from the DEFAULT World!";
-                "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!"
+                message = "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!";
 
                 bodyBackgroundColor = "#fff3e0"; // Light orange background
                 messageColor = "#ef6c00"; // Orange text
