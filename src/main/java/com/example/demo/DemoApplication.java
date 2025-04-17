@@ -60,7 +60,9 @@ public class DemoApplication {
                 borderColor = "#004d40"; // Darker teal border
             } else {
                 title = "Default Mode";
-                message = "Hello from the DEFAULT World!";
+                //message = "Hello from the DEFAULT World!";
+                "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!"
+
                 bodyBackgroundColor = "#fff3e0"; // Light orange background
                 messageColor = "#ef6c00"; // Orange text
                 borderColor = "#e65100"; // Darker orange border
