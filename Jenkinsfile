@@ -1,27 +1,16 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = 'Dockerfile'
-        IMAGE_TAG = 'latest'
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/bhagyashreep032/docker-sample-java-webapp.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $IMAGE_NAME:$IMAGE_TAG .'
+                sh 'docker build -t java-webapp:latest .'
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker run -p 8081:80 --name my-container $IMAGE_NAME:$IMAGE_TAG'
+                sh 'docker run -d --name java-webapp-container java-webapp:latest'
             }
         }
     }
