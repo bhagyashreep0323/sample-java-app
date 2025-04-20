@@ -7,6 +7,12 @@ pipeline {
     }
 
     stages {
+
+        stage('Check Docker Access') {
+      steps {
+        sh 'docker version'
+      }
+    }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t java-webapp:latest .'
