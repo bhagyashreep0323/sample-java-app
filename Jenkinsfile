@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 //sh 'docker run -d --name java-webapp-container java-webapp:latest'
-                sh 'docker run -d --name java-webapp-container -p 8080:8080 java-webapp:latest'
+                sh 'docker run -d --name java-webapp-container2 -p 8080:8080 java-webapp:latest'
             }
         }
     }
