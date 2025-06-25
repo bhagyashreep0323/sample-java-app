@@ -55,7 +55,7 @@ public class DemoApplication {
             if (isSpecialMode) {
                 title = "Special Mode Active!";
                 //message = "Hello from the ✨ SPECIAL ✨ World!";
-                message = "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!";
+                message = "Hello, welcome to the app!\nThis application is deploy by Bhagyashree!";
 
                 bodyBackgroundColor = "#e0f7fa"; // Light cyan background
                 messageColor = "#00796b"; // Teal text
@@ -63,7 +63,7 @@ public class DemoApplication {
             } else {
                 title = "Default Mode";
                 //message = "Hello from the DEFAULT World!";
-                message = "Hello, welcome to the app!\nThis application is accessed by docker container and deploy by Bhagyashree!";
+                message = "Hello, welcome to the app!\nThis application is deploy by Bhagyashree!";
 
                 bodyBackgroundColor = "#fff3e0"; // Light orange background
                 messageColor = "#000"; // Orange text
@@ -99,7 +99,7 @@ public class DemoApplication {
                            }
                            h1 {
                                color: %s;
-                               font-size: 2.5em; /* Larger font size */
+                               font-size: 1.5em; /* Larger font size */
                            }
                        </style>
                    </head>
