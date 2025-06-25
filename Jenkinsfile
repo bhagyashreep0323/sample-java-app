@@ -1,40 +1,33 @@
 pipeline {
-    agent any
+    agent {
+        label 'docker-agent'
+    }
 
     environment {
-        IMAGE_NAME = 'java-webapp'
-        DOCKER_HUB_USER = credentials('dockerhub-cred')
+        IMAGE_NAME = "my-java-app"
+        CONTAINER_NAME = "java-app-container"
+        VOLUME_NAME = "java-app-volume"
+        PORT = "8080"
     }
 
     stages {
-
-        stage('Check Docker Access') {
-      steps {
-        sh 'docker version'
-      }
-    }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t java-webapp:latest .'
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-cred', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker tag java-webapp:latest $DOCKER_USER/java-webapp:latest
-                        docker push $DOCKER_USER/java-webapp:latest
-                    '''
+                script {
+                    sh "docker build -t $IMAGE_NAME ."
                 }
             }
         }
 
-        stage('Deploy') {
+        stage('Run Docker Container') {
             steps {
-                //sh 'docker run -d --name java-webapp-container java-webapp:latest'
-                sh 'docker run -d --name java-webapp-container2 -p 8080:8080 java-webapp:latest'
+                script {
+                    sh """
+                        docker volume create $VOLUME_NAME
+                        docker rm -f $CONTAINER_NAME || true
+                        docker run -d --name $CONTAINER_NAME -v $VOLUME_NAME:/app/data -p 8090:$PORT $IMAGE_NAME
+                    """
+                }
             }
         }
     }
