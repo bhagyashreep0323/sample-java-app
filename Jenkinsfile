@@ -1,34 +1,34 @@
 pipeline {
-    agent {
-        label 'docker-agent'
+  agent {
+    label 'docker-agent'
+  }
+
+  stages {
+    stage('Clone Repo') {
+      steps {
+        git 'https://github.com/bhagyashreep0323/sample-java-app.git'
+      }
     }
 
-    environment {
-        IMAGE_NAME = "my-java-app"
-        CONTAINER_NAME = "java-app-container"
-        VOLUME_NAME = "java-app-volume"
-        PORT = "8080"
+    stage('Build') {
+      steps {
+        sh './mvnw clean package'
+      }
     }
 
-    stages {
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker build -t $IMAGE_NAME ."
-                }
-            }
-        }
-
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    sh """
-                        docker volume create $VOLUME_NAME
-                        docker rm -f $CONTAINER_NAME || true
-                        docker run -d --name $CONTAINER_NAME -v $VOLUME_NAME:/app/data -p 8090:$PORT $IMAGE_NAME
-                    """
-                }
-            }
-        }
+    stage('Build Docker Image') {
+      steps {
+        sh 'docker build -t my-java-app .'
+      }
     }
+
+    stage('Run Container with Volume') {
+      steps {
+        sh '''
+          docker volume create appdata
+          docker run -d --name my-app-container -v appdata:/app/data -p 8081:8080 my-java-app
+        '''
+      }
+    }
+  }
 }
