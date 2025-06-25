@@ -1,13 +1,17 @@
-FROM ubuntu AS clone
+FROM maven:3.8.6-openjdk-17 as build
 WORKDIR /app
-RUN git clone https://github.com/bhagyashreep032/docker-sample-java-webapp.git .
 
-FROM maven AS build
-WORKDIR /app
-COPY --from=clone /app /app
+# Clone the source code
+RUN git clone https://github.com/bhagyashreep0323/sample-java-app.git .
+
+# Build the app
 RUN mvn clean package
 
-FROM openjdk
+# Runtime image
+FROM eclipse-temurin:17-jdk
+
 WORKDIR /app
-COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar.jar app.jar
+
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
+
 ENTRYPOINT ["java", "-jar", "app.jar"]
